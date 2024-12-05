@@ -1,7 +1,7 @@
 #!/bin/python
 
 import sys
-import re
+
 
 def get_distance(a : int, b: int):
     if a > b:
