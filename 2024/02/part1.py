@@ -14,30 +14,31 @@ def is_report_safe(report_line):
     previous_number = None
     for report in report_line:
         if previous_number is None:
-            previous_number = int(report)
+            previous_number = report
             continue
 
-        distance = get_distance(previous_number, int(report))
-        print(f"Got distance {distance} for {report} and {previous_number}")
+        distance = get_distance(previous_number, report)
+        print(f"For {previous_number} and {report}, distance {distance}")
 
-        if distance < 1 and distance > 3:
+        if 1 > distance or distance > 3:
+            if distance > 0:
+                print(f"{previous_number} {report} is { 'an' if increasing else 'a'} {'increase' if increasing else 'decrease'} of {distance}")
+            else:
+                print(f"{previous_number} {report} is neither increasing or decreasing")
             return False
         
         if increasing is None:
-            if int(report) > previous_number:
-                increasing = True
-            
-            increasing = False
+            increasing = report > previous_number
 
         if increasing is True:
-            if int(report) < previous_number:
+            if report < previous_number:
                 return False
             
         if increasing is False:
-            if int(report) > previous_number:
+            if report > previous_number:
                 return False
             
-        previous_number = int(report)
+        previous_number = report
 
         
     return True
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     safe_reports_count = 0
 
     for line in input_file.readlines():
-        if is_report_safe(line.strip().split(" ")) is True:
+        if is_report_safe([ int(x) for x in line.strip().split(" ")]) is True:
             print("Safe")
             safe_reports_count += 1
         else:
