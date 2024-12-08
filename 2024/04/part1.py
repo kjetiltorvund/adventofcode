@@ -1,7 +1,7 @@
 #!/bin/python
 import sys
 
-def search_negative_diagonal(array2d, row, col, dirX, dirY, endX, endY):
+def search_by_directional_input(array2d, row, col, dirX, dirY, endX, endY):
     search_chars = ["X", "M", "A", "S"]
     pos = 0
     temp_word = ""
@@ -59,48 +59,48 @@ if __name__ == '__main__':
             if array2d[row][col] == "X":
 
                 # Left to right
-                xmas = search_negative_diagonal(array2d, row, col, 0, 1, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, 0, 1, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Left to right ->")
                 # Down right
-                xmas = search_negative_diagonal(array2d, row, col, 1, 1, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, 1, 1, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Down right \\")
 
                 # Straight down
-                xmas = search_negative_diagonal(array2d, row, col, 1, 0, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, 1, 0, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Down |")
 
                 # Down left
-                xmas = search_negative_diagonal(array2d, row, col, 1, -1, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, 1, -1, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Down left /")
 
                 # Right to left
-                xmas = search_negative_diagonal(array2d, row, col, 0, -1, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, 0, -1, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Right to left <-")
 
                 # Upward left
-                xmas = search_negative_diagonal(array2d, row, col, -1, -1, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, -1, -1, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Up left \\")
 
                 # Straight up
-                xmas = search_negative_diagonal(array2d, row, col, -1, 0, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, -1, 0, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Up |")
 
                 # Upward right
-                xmas = search_negative_diagonal(array2d, row, col, -1, 1, len(array2d[row]), len(array2d))
+                xmas = search_by_directional_input(array2d, row, col, -1, 1, len(array2d[row]), len(array2d))
                 if xmas is not None:
                     xmas_count += 1
                     print(f"{xmas_count:02d}: {row}:{col} Up right /")
