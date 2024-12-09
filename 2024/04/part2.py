@@ -35,8 +35,6 @@ def search_by_directional_input(array2d, row, col, dirX, dirY, endX, endY):
 if __name__ == '__main__':
     input_file_name = sys.argv[1]
 
-    input_file = open(input_file_name, "r")
-
     array2d = []
 
     with open(input_file_name, "r") as f:
