@@ -32,8 +32,11 @@ if __name__ == '__main__':
     #print(updates_page_numbers)
 
     middle_numbers = []
+    total_count = 0
+    incorrect_count = 0
 
     for update_line in updates_page_numbers:
+        total_count += 1
         line_split = update_line.split(",")
         line_upheld_the_rules = True
         for page_number in line_split:
@@ -52,6 +55,8 @@ if __name__ == '__main__':
         print(f"{line_split} upheld the rule: {line_upheld_the_rules}")
         if line_upheld_the_rules:
             middle_numbers += find_middle_element(line_split)
+        else:
+            incorrect_count += 1
 
-    print(sum(middle_numbers))
+    print(f"Total count {total_count - incorrect_count}, sum: {sum(middle_numbers)}")
             
