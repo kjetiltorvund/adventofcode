@@ -1,6 +1,7 @@
 #!/bin/python
 import math
 import sys
+from functools import cmp_to_key
 
 
 def find_middle_element(arr):
@@ -16,20 +17,15 @@ def find_middle_element(arr):
     return result
 
 
-def shift_number_to_pass_rule(page_list, rules):
-    j = 0
-    while j < len(page_list):
-        page_number = page_list[j]
-        filtered_rule_set = get_rules_for_page(page_number, rules)
-        page_pos = j
-        for i in range(j+1, len(page_list), 1):
-            if f"{page_number}|{page_list[i]}" not in filtered_rule_set:
-                print(f"Page {page_number}, Rule {page_list[i]}|{page_number}")
-                temp = page_list[i]
-                page_list[page_pos] = temp
-                page_list[i] = page_number
-                page_pos = i
-        j += 1
+# Global rules array
+rules = []
+
+# Custom sort function
+def rule_sort(item1, item2):
+    if f"{item1}|{item2}" in rules:
+        return -1
+    else:
+        return 1
 
 
 def is_valid(page_list, rules):
@@ -39,7 +35,6 @@ def is_valid(page_list, rules):
         rule_set_for_page_number = get_rules_for_page(page_number, rules)
 
         for i in range(j + 1, len(page_list), 1):
-            # print(f"{page_number}: {line_split[i]}")
             if f"{page_number}|{page_list[i]}" not in rule_set_for_page_number:
                 return False
 
@@ -66,9 +61,8 @@ if __name__ == '__main__':
             else:
                 updates_page_numbers.append(line.strip())
 
-    #print(page_order_rules)
+    rules = page_order_rules
     updates_page_numbers = [x for x in updates_page_numbers if x != '']
-    #print(updates_page_numbers)
 
     middle_numbers = []
     middle_numbers_on_incorrect = []
@@ -84,11 +78,9 @@ if __name__ == '__main__':
             correct_count += 1
             middle_numbers.append(find_middle_element(line_split))
         else:
-            shift_number_to_pass_rule(page_list=line_split, rules=page_order_rules)
+            test = sorted(line_split, key=cmp_to_key(rule_sort))
             incorrect_count += 1
-            middle_numbers_on_incorrect.append(find_middle_element(line_split))
-            part_two_sum += find_middle_element(line_split)
+            part_two_sum += find_middle_element(test)
 
     print(f"Correct lines count {correct_count}, sum: {sum(middle_numbers)}")
-    print(f"Lines with incorrect count {incorrect_count}, sum: {sum(middle_numbers_on_incorrect)}")
     print(f"Lines with incorrect count {incorrect_count}, sum: {part_two_sum}")
