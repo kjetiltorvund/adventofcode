@@ -28,16 +28,23 @@ fn main() -> io::Result<()> {
 
         let direction = element.chars().nth(0);
         
-        let value: i32 = element[1..].parse().expect("invalid number");
+        let mut value: i32 = element[1..].parse().expect("invalid number");
 
-        if direction == Some('L') {
-            dail_state = wrap_0_99(dail_state - value);
-        } else {
-            dail_state = wrap_0_99(dail_state + value);
-        }
+        println!("Looping: {}", value);
+        while value >= 0 {
+            if direction == Some('L') {
+                dail_state -= 1;
+                dail_state = wrap_0_99(dail_state);
+            } else {
+                dail_state += 1;
+                dail_state = wrap_0_99(dail_state);
+            }
 
-        if dail_state == 0 {
-            rule_counter += 1;
+            if dail_state == 0 {
+                rule_counter += 1;
+            }
+
+            value -= 1;
         }
     }
 
